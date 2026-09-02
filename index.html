@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ali Ahmed Abd Elshafy | AI Engineer</title>
+  <meta name="description" content="Ali Ahmed Abd Elshafy — AI Engineering student and intern at Digital Hub, building RAG systems with LangChain, FAISS, and FastAPI." />
+  <meta name="author" content="Ali Ahmed Abd Elshafy" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f5f3;
+      --card-bg: #ffffff;
+      --card-border: #e4e2de;
+      --text-main: #1a1a1a;
+      --text-muted: #5f5f5f;
+      --badge-bg: #eceae6;
+      --dot-green: #22c55e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding: 0 2rem;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 1.5rem 0 4rem; }
+
+    /* ===== Navbar ===== */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .logo {
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 1.75rem; }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover { color: var(--text-main); }
+
+    .btn-nav {
+      font-size: 0.92rem;
+      color: var(--text-main);
+      text-decoration: none;
+      border-bottom: 1px solid var(--text-main);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .btn-nav:hover { opacity: 0.6; }
+
+    /* ===== Hero ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      padding: 4rem 0 3rem;
+    }
+
+    .hero-stats { display: flex; gap: 3rem; margin-bottom: 2rem; }
+
+    .stat .number {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .stat .number sup { font-size: 1.2rem; color: var(--text-muted); }
+    .stat .label { font-size: 0.85rem; color: var(--text-muted); }
+
+    .hero h1 {
+      font-size: clamp(4.5rem, 12vw, 8.5rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 1rem;
+    }
+
+    .hero .tagline { font-size: 1.05rem; color: var(--text-main); }
+
+    .hero .tagline em {
+      font-style: normal;
+      border-bottom: 1px solid var(--text-main);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary { background: var(--text-main); color: var(--bg); }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      background: var(--card-bg);
+    }
+    .btn-secondary:hover { border-color: var(--text-main); }
+
+    .scroll-hint {
+      margin-top: 3.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .scroll-hint:hover { color: var(--text-main); }
+
+    /* ===== Photo ===== */
+    .hero-photo {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      max-width: 440px;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: top;
+      filter: grayscale(55%) contrast(1.02) brightness(1.04);
+      border-radius: 6px;
+    }
+
+    .availability-badge {
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    .availability-badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dot-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+      50% { box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+    }
+
+    /* ===== Sections ===== */
+    section { margin-bottom: 4.5rem; scroll-margin-top: 1rem; }
+
+    h2.section-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.75rem;
+    }
+
+    /* ===== About ===== */
+    .about-text {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 720px;
+    }
+    .about-text strong { color: var(--text-main); font-weight: 600; }
+
+    /* ===== Cards / Grid ===== */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover { border-color: var(--text-main); transform: translateY(-2px); }
+
+    .card h3 { font-size: 1.12rem; margin-bottom: 0.5rem; }
+
+    .card p { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1rem; flex-grow: 1; }
+
+    .project-link {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 0.5rem;
+      border-bottom: 1px solid transparent;
+    }
+    .project-link:hover { color: var(--text-main); border-bottom-color: var(--text-main); }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tag {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      background: var(--badge-bg);
+      color: var(--text-muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    /* ===== Timeline ===== */
+    .timeline-item {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid var(--card-border);
+      margin-bottom: 1.75rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -6px; top: 6px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--text-main);
+    }
+
+    .timeline-item h3 { font-size: 1.1rem; font-weight: 600; }
+
+    .timeline-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item ul {
+      list-style-type: disc;
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+    .timeline-item ul li { margin-bottom: 0.4rem; }
+
+    /* ===== Contact ===== */
+    .contact-card {
+      background: var(--text-main);
+      color: var(--bg);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+
+    .contact-card h2 { font-size: 2rem; font-weight: 600; letter-spacing: -0.02em; }
+
+    .contact-card p { color: #c9c9c9; margin-top: 0.5rem; }
+
+    .contact-card .contact-email {
+      margin-top: 1rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.95rem;
+    }
+    .contact-card .contact-email a { color: var(--bg); text-decoration: none; border-bottom: 1px solid #666; }
+
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-light { background: var(--bg); color: var(--text-main); font-weight: 600; }
+    .btn-light:hover { opacity: 0.9; }
+
+    .btn-outline { border: 1px solid #555; color: var(--bg); }
+    .btn-outline:hover { border-color: var(--bg); }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--card-border);
+    }
+
+    /* ===== Mobile ===== */
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; padding: 2.5rem 0; }
+      .hero-photo { order: -1; }
+      .hero h1 { font-size: clamp(3.5rem, 16vw, 6rem); }
+      .hero-stats { gap: 2rem; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Navbar -->
+    <nav>
+      <a href="#" class="logo">Ali.dev</a>
+      <div class="nav-links">
+        <a href="#about">About Me</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="mailto:alishafy0@gmail.com" class="btn-nav">Get in touch ↗</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="number"><sup>+</sup>2</div>
+            <div class="label">Real projects delivered</div>
+          </div>
+          <div class="stat">
+            <div class="number">2<sup>nd</sup></div>
+            <div class="label">Year AI student — FCAI</div>
+          </div>
+        </div>
+
+        <h1>Hello</h1>
+        <p class="tagline">— I'm <em>Ali</em>, an AI Engineering student &amp; intern</p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="https://github.com/Ali-Ahmed-AbdElshafy" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+          <a href="https://www.linkedin.com/in/ali-shafy-b7439737b/" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+        </div>
+
+        <a href="#about" class="scroll-hint">Scroll down ↓</a>
+      </div>
+
+      <div class="hero-photo">
+        <img src="profile.png" alt="Ali Ahmed Abd Elshafy" />
+        <div class="availability-badge">
+          <span class="dot"></span> Available for work
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="about-text">
+        Second-year <strong>Artificial Intelligence student</strong> at the Faculty of Computers and
+        Artificial Intelligence, Cairo National University, and an <strong>AI Engineer Intern at Digital Hub</strong>.
+        I build Retrieval-Augmented Generation systems with LangChain, LangGraph, and FAISS, serve them
+        through FastAPI backends, and have shipped a <strong>paid client AI video production</strong> from
+        prompt engineering to final edit.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>🤖 AI &amp; LLM Engineering</h3>
+          <p>Gained through my internship at Digital Hub — building production RAG workflows.</p>
+          <div class="tags">
+            <span class="tag">RAG Pipelines</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">LangGraph</span>
+            <span class="tag">FAISS Vector Search</span>
+            <span class="tag">Semantic Embeddings</span>
+            <span class="tag">Prompt Engineering</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>⚙️ Software Engineering</h3>
+          <p>My strongest language is C++, with Python used across all my AI project work.</p>
+          <div class="tags">
+            <span class="tag">C++</span>
+            <span class="tag">Python</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Pydantic</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Git &amp; GitHub</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>🎬 AI Content Production</h3>
+          <p>From a real paid client project — AI-driven music video production end to end.</p>
+          <div class="tags">
+            <span class="tag">Google Flow</span>
+            <span class="tag">Manus</span>
+            <span class="tag">Claude (Prompts)</span>
+            <span class="tag">Character Consistency</span>
+            <span class="tag">Adobe Premiere Pro</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="grid-2">
+
+        <div class="card">
+          <h3>1. RAG System — Digital Hub Internship
+            <a class="project-link" href="https://github.com/Ali-Ahmed-AbdElshafy" target="_blank" rel="noopener">↗ Code</a>
+          </h3>
+          <p>
+            Built custom Retrieval-Augmented Generation pipelines with context-grounding mechanisms to
+            prevent LLM hallucinations. Implemented vector similarity search and document indexing with
+            FAISS, served the workflows through schema-validated FastAPI backends, and built interactive
+            testing dashboards with Streamlit.
+          </p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">LangChain</span>
+            <span class="tag">LangGraph</span>
+            <span class="tag">FAISS</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">Streamlit</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>2. "كله بيانجا" — AI-Driven Music Video
+            <span class="tag" style="vertical-align: middle;">💰 Paid client work</span>
+          </h3>
+          <p>
+            A complete AI-generated music video produced for a real paying client. Built a character sheet
+            from the singer's photos and styled him in traditional Nubian clothing using <strong>Manus</strong>,
+            engineered shot-by-shot generation prompts written with <strong>Claude</strong>, generated the
+            video clips with <strong>Google Flow</strong>, then synchronized cuts, transitions, and camera
+            movement to the beat grid and mastered the final cut in <strong>Adobe Premiere Pro</strong>.
+            The visual narrative contrasts traditional Nubian heritage with a modern transformation,
+            timed to match the beat drops.
+          </p>
+          <div class="tags">
+            <span class="tag">Google Flow</span>
+            <span class="tag">Manus</span>
+            <span class="tag">Claude</span>
+            <span class="tag">Prompt Engineering</span>
+            <span class="tag">Premiere Pro</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Experience & Education -->
+    <section>
+      <h2 class="section-title">Experience &amp; Education</h2>
+
+      <div class="timeline-item">
+        <h3>AI Engineer Intern — Digital Hub</h3>
+        <div class="timeline-meta">Started August 2026</div>
+        <ul>
+          <li>Built RAG pipelines with context-grounding to mitigate LLM hallucinations.</li>
+          <li>Implemented vector search and document indexing using FAISS.</li>
+          <li>Developed decoupled, schema-validated backend APIs with FastAPI.</li>
+          <li>Built user-facing prototypes and testing dashboards with Streamlit.</li>
+          <li>Learned agentic orchestration (chaining, routing, structuring LLM workflows) with LangChain &amp; LangGraph.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <h3>B.Sc. in Artificial Intelligence — 2nd Year</h3>
+        <div class="timeline-meta">Cairo National University • Faculty of Computers and AI</div>
+        <ul>
+          <li>Studying Algorithms, Data Structures, Logic Design, and Machine Learning.</li>
+          <li>Strong focus on C++ and algorithmic problem-solving.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="contact-card">
+        <h2>Let's build something together.</h2>
+        <p>Open to internships, freelance AI production work, and collaborations.</p>
+        <p class="contact-email">
+          📧 <a href="mailto:alishafy0@gmail.com">alishafy0@gmail.com</a>
+        </p>
+        <div class="contact-buttons">
+          <a href="mailto:alishafy0@gmail.com" class="btn btn-light">Send Email</a>
+          <a href="https://github.com/Ali-Ahmed-AbdElshafy" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+          <a href="https://www.linkedin.com/in/ali-shafy-b7439737b/" target="_blank" rel="noopener" class="btn btn-outline">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year">2026</span> Ali Ahmed Abd Elshafy · Built with ❤️ and clean code
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+
+  </div>
+
+</body>
+</html>
